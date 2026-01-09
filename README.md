@@ -189,3 +189,149 @@ This project is for educational and research purposes. License details can be ad
 ## 🌟 Final Note
 
 Curious Fox is built with one belief: Every student can learn complex concepts — if we teach the right way.
+
+---
+
+## 🚧 Getting started — Run locally (Development)
+
+The project contains a Node.js / Express backend and a React frontend. The instructions below are intentionally generic — update paths if your repository structure differs (e.g., single-app, `backend/` and `frontend/` folders, or a monorepo setup).
+
+Prerequisites
+- Node.js (v16+ recommended)
+- npm (v8+) or yarn
+- MySQL (8.x recommended) or compatible SQL server
+- Google Gemini / AI credentials (if you want to enable AI features)
+
+1) Clone the repository
+
+```bash
+git clone https://github.com/Krishank1201/The-Curious-Fox.git
+cd The-Curious-Fox
+```
+
+2) Repo layout (common patterns)
+
+- Option A — Monorepo with folders:
+  - `backend/` — Express API
+  - `frontend/` — React app
+- Option B — Single project (API + frontend in same root). Adjust commands below accordingly.
+
+3) Backend — install & configure
+
+```bash
+cd backend
+npm install
+# or: yarn
+```
+
+Create a `.env` file in `backend/` (example):
+
+```
+PORT=5000
+DB_HOST=localhost
+DB_PORT=3306
+DB_USER=root
+DB_PASS=password
+DB_NAME=curious_fox_dev
+JWT_SECRET=your_jwt_secret
+GOOGLE_GEMINI_API_KEY=your_api_key_here
+```
+
+Create the database in MySQL:
+
+```sql
+CREATE DATABASE curious_fox_dev CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+```
+
+Run migrations (if you use an ORM). Common commands — update according to your stack:
+
+```bash
+npm run migrate          # if scripts/migrate exists
+# or, for Sequelize:
+npx sequelize db:migrate
+# or run SQL migration scripts in `migrations/`
+```
+
+Seed initial data (optional):
+
+```bash
+npm run seed
+```
+
+Start the backend server:
+
+```bash
+npm run dev    # nodemon or similar
+# or
+npm start
+```
+
+The API should be available at http://localhost:5000 (or the PORT from `.env`).
+
+4) Frontend — install & run
+
+```bash
+cd ../frontend
+npm install
+npm start
+```
+
+The React app will typically run at http://localhost:3000. If API runs on another port, ensure the frontend's environment (e.g., `.env.development`) points to the backend API base URL.
+
+5) Full-stack local run (concurrently)
+
+If you want to run both at once from the repo root and a `dev` script exists:
+
+```bash
+npm run dev:all
+# or use concurrently
+npx concurrently "cd backend && npm run dev" "cd frontend && npm start"
+```
+
+6) Testing
+
+Run unit / integration tests where available:
+
+```bash
+cd backend
+npm test
+cd ../frontend
+npm test
+```
+
+7) AI / Google Gemini
+
+- Place your Gemini API key (or service credentials) in the backend `.env` as `GOOGLE_GEMINI_API_KEY` and follow any platform-specific setup in `docs/` or `README` files.
+- For local testing without Gemini, you may stub or mock the AI endpoints in a local dev config.
+
+---
+
+## ⚙️ How to use (Quick walkthrough)
+
+1. Open the frontend (`http://localhost:3000`) and create a student account or use a seeded demo user.
+2. On first login, complete the learning style quiz and the short conversation with Dr. Fox to generate your Learning Blueprint.
+3. Select a topic (e.g., K-Means). Dr. Fox will run a short Bloom’s-style assessment to set your starting level.
+4. Follow the AI-generated Learning Roadmap, which unlocks modules progressively.
+5. Use the Coding Labs:
+   - Learn Mode — read-only guided walkthroughs
+   - Practice Mode — complete partial or full code and earn scores
+   - Test Mode — final assessment without hints
+6. Generate quizzes using the Quiz System; complete timed sections and review AI feedback.
+7. Track progress in the Dashboard to see Bloom’s level changes, strengths, and suggested next steps.
+
+---
+
+## 🧾 Notes & troubleshooting
+
+- If the frontend cannot reach the backend, verify CORS settings and API_BASE_URL in the frontend environment.
+- If migrations fail, ensure your DB credentials are correct and the user has privileges to create tables.
+- AI features require valid API credentials — confirm quota/permissions on the provider portal.
+
+---
+
+If you want, I can now:
+- Add a CONTRIBUTING.md, LICENSE, and sample `.env.example` file
+- Add a concise Table of Contents and CI badges
+- Create a demo seed user and SQL seed file
+
+Tell me which of these you'd like and I'll update the repo accordingly.
