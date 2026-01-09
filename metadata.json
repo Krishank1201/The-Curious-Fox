@@ -1,0 +1,8 @@
+{
+  "name": "Curious Fox",
+  "description": "A design-first learning platform for engineering students with a focus on AI, ML, and core computer science subjects, featuring a sleek orange glassmorphic interface.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ]
+}
